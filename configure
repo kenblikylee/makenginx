@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Copyright (C) kenblikylee
+# Copyright (C) kenblog.top
+
+BUILD_DIR=${BUILD_DIR:-build}
+MAKEFILE=$BUILD_DIR/Makefile
+
+module=${1:-""}
+
+case $module in
+    --help|-h)
+        . auto/help
+        exit 0
+    ;;
+
+    ""|--*)
+    ;;
+
+    *)
+        . auto/modules/conf
+        exit 0
+    ;;
+esac
+
+test -d $BUILD_DIR || mkdir $BUILD_DIR
+
+. auto/make
