@@ -1,5 +1,5 @@
-# 创建安装脚本 build/install
-cat << CEND > $INSTALL
+# 创建安装脚本 build/download
+cat << CEND > $DOWNLOAD
 
 test -d $SRC_ROOT_DIR || mkdir $SRC_ROOT_DIR
 
@@ -20,6 +20,13 @@ wget http://zlib.net/zlib-1.2.11.tar.gz
 tar zxf zlib-1.2.11.tar.gz
 rm -f zlib-1.2.11.tar.gz
 
+CEND
+
+chmod +x $DOWNLOAD
+
+# 创建安装脚本 build/install
+cat << CEND > $INSTALL
+
 cat << END
 安装依赖：$INSTALL_DEPENDENCES
 nginx 源码目录：$NGINX_SRC_DIR
@@ -37,6 +44,9 @@ zlib 源码目录：$ZLIB_SRC_DIR
 openssl 源码目录：$OPENSSL_SRC_DIR
 nginx 安装目录：$NGINX_INSTALL_DIR
 END
+
+# 安装依赖项
+yum -y install $INSTALL_DEPENDENCES
 
 cd $NGINX_SRC_DIR
 test -f ./Makefile && make clean

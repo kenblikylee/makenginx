@@ -5,6 +5,7 @@
 
 BUILD_DIR=${BUILD_DIR:-build}
 MAKEFILE=$BUILD_DIR/Makefile
+DOWNLOAD=$BUILD_DIR/download
 INSTALL=$BUILD_DIR/install
 
 INSTALL_DEPENDENCES='gcc gcc-c++ automake pcre pcre-devel zlib zlib-devel openssl openssl-devel'
