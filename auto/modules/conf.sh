@@ -6,11 +6,11 @@
 case "$module" in
 
    python)
-       . auto/modules/python
+       . auto/modules/python.sh
    ;;
 
    nodejs)
-       . auto/modules/nodejs
+       . auto/modules/nodejs.sh
    ;;
 
    *)

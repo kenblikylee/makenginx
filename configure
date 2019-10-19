@@ -5,12 +5,21 @@
 
 BUILD_DIR=${BUILD_DIR:-build}
 MAKEFILE=$BUILD_DIR/Makefile
+INSTALL=$BUILD_DIR/install
+
+INSTALL_DEPENDENCES='gcc gcc-c++ automake pcre pcre-devel zlib zlib-devel openssl openssl-devel'
+NGINX_SRC_DIR=nginx-1.15.2
+NGINX_INSTALL_DIR=/ken/nginx
+# nginx module source directory
+PCRE_SRC_DIR=../pcre-8.41
+ZLIB_SRC_DIR=../zlib-1.2.11
+OPENSSL_SRC_DIR=../openssl-1.1.0h
 
 module=${1:-""}
 
 case $module in
     --help|-h)
-        . auto/help
+        . auto/help.sh
         exit 0
     ;;
 
@@ -18,11 +27,11 @@ case $module in
     ;;
 
     *)
-        . auto/modules/conf
+        . auto/modules/conf.sh
         exit 0
     ;;
 esac
 
 test -d $BUILD_DIR || mkdir $BUILD_DIR
 
-. auto/make
+. auto/make.sh
