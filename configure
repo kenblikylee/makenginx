@@ -39,7 +39,7 @@ NGINX_INSTALL_DIR=$INSTALL_ROOT_DIR/nginx
 # nginx module source directory
 PCRE_SRC_DIR=$SRC_ROOT_DIR/pcre-8.43
 ZLIB_SRC_DIR=$SRC_ROOT_DIR/zlib-1.2.11
-OPENSSL_SRC_DIR=$SRC_ROOT_DIR/openssl
+OPENSSL_SRC_DIR=$SRC_ROOT_DIR/openssl-1.1.0h
 
 test -f ./Makefile && make clean
 test -d $BUILD_DIR || mkdir $BUILD_DIR

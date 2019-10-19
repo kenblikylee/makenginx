@@ -10,7 +10,11 @@ yum install git
 cd $SRC_ROOT_DIR
 git clone https://github.com/nginx/nginx.git
 ## 3. 下载 OpenSSL 源码
-git clone https://github.com/openssl/openssl.git
+# git clone https://github.com/openssl/openssl.git
+# git 仓库的 OpenSSL 最新版以及 tag-1.1.0h 不兼容，改用 wget 直接获取源码压缩包
+wget https://www.openssl.org/source/old/1.1.0/openssl-1.1.0h.tar.gz
+tar zxf openssl-1.1.0h.tar.gz
+rm -f openssl-1.1.0h.tar.gz
 ## 4. 下载 pcre 源码
 wget https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
 tar zxf pcre-8.43.tar.gz
