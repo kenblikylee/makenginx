@@ -1,5 +1,10 @@
 # makenginx
+
 use make to auto-config nginx.
+
+最新测试通过：
+
+- 阿里云ECS: CentOS Linux release 7.6.1810 (Core) 
 
 ## 生成 nginx 自动安装脚本 install
 
