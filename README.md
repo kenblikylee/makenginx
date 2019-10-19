@@ -1,19 +1,26 @@
 # makenginx
 use make to auto-config nginx.
 
-## configure
+## 生成 nginx 自动安装脚本 install
 
 ``` sh
-# print help info
-./configure --help|-h
-# auto generate makefile
+# 指定安装目录
+./configure --prefix=/ken
+# 或
+./configure -p=/ken
+# 默认安装到 /usr/local 目录下
 ./configure
-# config module
-./configure python
-./configure nodejs
 ```
 
-## make
+## 启动自动下载和安装
+
+源码下载到 `~/source` 目录下
+
+``` sh
+./build/install
+```
+
+## make clean
 
 ``` sh
 # 删除 ./configure 生成的 makefile 文件和 build 目录
