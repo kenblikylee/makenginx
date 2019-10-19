@@ -8,12 +8,9 @@ MAKEFILE=$BUILD_DIR/Makefile
 INSTALL=$BUILD_DIR/install
 
 INSTALL_DEPENDENCES='gcc gcc-c++ automake pcre pcre-devel zlib zlib-devel openssl openssl-devel'
-NGINX_SRC_DIR=nginx-1.15.2
-NGINX_INSTALL_DIR=/ken/nginx
-# nginx module source directory
-PCRE_SRC_DIR=../pcre-8.41
-ZLIB_SRC_DIR=../zlib-1.2.11
-OPENSSL_SRC_DIR=../openssl-1.1.0h
+
+SRC_ROOT_DIR=~/source
+INSTALL_ROOT_DIR=/usr/local
 
 module=${1:-""}
 
@@ -21,6 +18,10 @@ case $module in
     --help|-h)
         . auto/help.sh
         exit 0
+    ;;
+
+    --prefix=*|-p=*)
+        INSTALL_ROOT_DIR=`echo $module | sed -e 's/[-_0-9a-zA-Z]*=//'`
     ;;
 
     ""|--*)
@@ -32,6 +33,14 @@ case $module in
     ;;
 esac
 
+NGINX_SRC_DIR=$SRC_ROOT_DIR/nginx
+NGINX_INSTALL_DIR=$INSTALL_ROOT_DIR/nginx
+# nginx module source directory
+PCRE_SRC_DIR=$SRC_ROOT_DIR/pcre-8.43
+ZLIB_SRC_DIR=$SRC_ROOT_DIR/zlib-1.2.11
+OPENSSL_SRC_DIR=$SRC_ROOT_DIR/openssl
+
+test -f ./Makefile && make clean
 test -d $BUILD_DIR || mkdir $BUILD_DIR
 
 . auto/make.sh
