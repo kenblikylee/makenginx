@@ -14,7 +14,13 @@ use make to auto-config nginx.
 
 ## 启动自动下载和安装
 
-源码下载到 `~/source` 目录下
+下载源码到 `~/source` 目录下：
+
+``` sh
+./build/download
+```
+
+启动源码安装:
 
 ``` sh
 ./build/install
