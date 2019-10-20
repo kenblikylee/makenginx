@@ -20,7 +20,7 @@ MAKENGINX_CONFD=$NGINX_INSTALL_DIR/conf/makenginx_servers
 test -d $MAKENGINX_CONFD || mkdir $MAKENGINX_CONFD
 sed -i '$ i\    include makenginx_servers/*.conf;' $NGINX_CONF_FILE
 
-# 
+# 添加服务
 cat << XEND > addser
 
 APP=\${1:-''}
@@ -67,3 +67,28 @@ sed -i -e "s/\[port\]/\$PORT/" $MAKENGINX_CONFD/\$APP.conf
 XEND
 
 chmod u+x addser
+
+# 移除服务，备份在 ~/.makenginx/rm 目录下
+test -d ~/.makenginx/rm || mkdir -p ~/.makenginx/rm
+
+cat << XEND > rmser
+
+APP=\${1:-''}
+
+if [ ! \$APP ]; then
+    echo "usage: ./rmser <app>"
+    exit 0
+fi
+
+BACKUP_DIR=~/.makenginx/rm/\$APP
+
+test -d \$BACKUP_DIR && rm -rf \$BACKUP_DIR
+
+mkdir \$BACKUP_DIR
+
+mv $MAKENGINX_CONFD/\$APP.conf \$BACKUP_DIR
+mv $INSTALL_ROOT_DIR/www/\$APP \$BACKUP_DIR
+
+XEND
+
+chmod u+x rmser
