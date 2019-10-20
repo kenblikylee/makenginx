@@ -63,13 +63,6 @@ END
 
 chmod u+x version
 
-cat << END > diffconf
-git diff $NGINX_INSTALL_DIR/conf/nginx.conf.default $NGINX_INSTALL_DIR/conf/nginx.conf
-
-END
-
-chmod u+x diffconf
-
 # 日志
 cat << END > log
 t=\${1:-''}

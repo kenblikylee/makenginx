@@ -1,5 +1,4 @@
 cpu_num=$(cat /proc/cpuinfo | grep name | wc -l)
-NGINX_CONF_FILE=$NGINX_INSTALL_DIR/conf/nginx.conf
 
 cat << END > init
 echo "detected ${cpu_num} cpu cores, init worker_processes to ${cpu_num} at config-file $NGINX_CONF_FILE ."

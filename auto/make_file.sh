@@ -16,7 +16,7 @@ include $MAKEFILE
 .PHONY: clean
 clean:
 	rm -rf $BUILD_DIR *.dSYM Makefile
-	rm -f start stop reload restart show  status  test help init version diffconf log
+	rm -f start stop reload restart show  status  test help init version log diffconf cpconf addser
 
 END
 echo "created Makefile"

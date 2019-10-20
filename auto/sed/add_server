@@ -1,0 +1,6 @@
+$ i\
+server {\
+    listen       [port];\
+    server_name  [host];\
+    root         [root];\
+}\
