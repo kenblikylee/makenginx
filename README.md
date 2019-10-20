@@ -54,6 +54,17 @@ make clean
 curl 127.0.0.1:8080
 ```
 
+``` sh
+$ ./addser wecover wecover.xin 8080
+
+server {
+    listen       8080;
+    server_name  wecover.xin;
+    root         /ken/www/wecover;
+}
+
+```
+
 移除应用:
 
 ``` sh
@@ -65,5 +76,19 @@ curl 127.0.0.1:8080
 ``` sh
 ./addloc <toapp> <uri> <rootdir>
 ./rmloc <app> <uri>
+```
+
+``` sh
+$ ./addloc wecover '~ /(images|videos)/' '/ken/assets'
+
+server {
+    listen       8080;
+    server_name  wecover.xin;
+    root         /ken/www/wecover;
+    location ~ /(images|videos)/ {
+        root         /ken/assets;
+    }
+
+}
 ```
 
