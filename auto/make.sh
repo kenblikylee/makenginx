@@ -4,4 +4,5 @@
 
 . auto/make_file.sh
 . auto/make_install.sh
+. auto/make_init.sh
 . auto/make_start.sh
