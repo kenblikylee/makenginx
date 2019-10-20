@@ -54,3 +54,16 @@ make clean
 curl 127.0.0.1:8080
 ```
 
+移除应用:
+
+``` sh
+./rmser <app>
+```
+
+## 增加和移除 location
+
+``` sh
+./addloc <toapp> <uri> <rootdir>
+./rmloc <app> <uri>
+```
+
