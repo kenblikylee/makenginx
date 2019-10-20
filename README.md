@@ -92,3 +92,36 @@ server {
 }
 ```
 
+## 添加和移除反向代理
+
+``` sh
+$ ./addproxy wecover /api/ 127.0.0.1:4000
+
+server {
+    listen       8080;
+    server_name  wecover.xin;
+    root         /ken/www/wecover;
+    location ~ /(images|videos)/ {
+        root         /ken/assets;
+    }
+
+    location /api/ {
+        proxy_pass         127.0.0.1:4000;
+    }
+
+}
+
+$ ./rmloc wecover "\/api\/"
+
+server {
+    listen       8080;
+    server_name  wecover.xin;
+    root         /ken/www/wecover;
+    location ~ /(images|videos)/ {
+        root         /ken/assets;
+    }
+
+
+}
+
+```

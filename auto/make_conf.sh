@@ -151,3 +151,34 @@ cat \$APP_CONF
 XEND
 
 chmod u+x rmloc
+
+# 增加反向代理
+
+cat << XEND > addproxy
+
+if [ \$# -lt 3 ]; then
+    echo "usage: ./addloc <toapp> <uri> <proxy>"
+    exit 0
+fi
+
+APP=\${1:-''}
+URI=\${2:-''}
+PROXY=\${3:-''}
+
+APP_CONF=$MAKENGINX_CONFD/\$APP.conf
+
+if [ ! -f \$APP_CONF ]; then
+    echo "\$APP not exist, please create it with addser first."
+    exit 0
+fi
+
+sed -i -f ./auto/sed/add_proxy \$APP_CONF
+
+sed -i -e "s@\[uri\]@\$URI@" \$APP_CONF
+sed -i -e "s~\[proxy\]~\$PROXY~" \$APP_CONF
+
+cat \$APP_CONF
+
+XEND
+
+chmod u+x addproxy

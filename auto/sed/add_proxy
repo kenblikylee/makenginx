@@ -1,0 +1,4 @@
+/^}$/ i\
+    location [uri] {\
+        proxy_pass         [proxy];\
+    }\
