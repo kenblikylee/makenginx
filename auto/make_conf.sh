@@ -182,3 +182,35 @@ cat \$APP_CONF
 XEND
 
 chmod u+x addproxy
+
+# 便捷添加图片 location
+
+cat << XEND > addimgloc
+
+if [ \$# -lt 2 ]; then
+    echo "usage: ./addimgloc <toapp> <imgdir>"
+    exit 0
+fi
+
+APP=\${1:-''}
+ROOTDIR=\${2:-''}
+
+APP_CONF=$MAKENGINX_CONFD/\$APP.conf
+
+if [ ! -f \$APP_CONF ]; then
+    echo "\$APP not exist, please create it with addser first."
+    exit 0
+fi
+
+sed -i -f ./auto/sed/add_location \$APP_CONF
+
+IMG_URI="~ \.(gif|jpg|png)$"
+
+sed -i -e "s@\[uri\]@\$IMG_URI@" \$APP_CONF
+sed -i -e "s~\[rootdir\]~\$ROOTDIR~" \$APP_CONF
+
+cat \$APP_CONF
+
+XEND
+
+chmod u+x addimgloc

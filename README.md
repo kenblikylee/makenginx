@@ -125,3 +125,25 @@ server {
 }
 
 ```
+
+## 添加图片资源 location
+
+``` sh
+$ ./addimgloc wecover /ken/assets/images
+
+server {
+    listen       8080;
+    server_name  wecover.xin;
+    root         /ken/www/wecover;
+    location ~ /(images|videos)/ {
+        root         /ken/assets;
+    }
+
+
+    location ~ .(gif|jpg|png)$ {
+        root         /ken/assets/images;
+    }
+
+}
+
+```
