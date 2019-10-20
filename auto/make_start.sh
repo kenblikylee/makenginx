@@ -56,4 +56,18 @@ END
 
 chmod u+x status
 
+cat << END > version
+$NGINX_INSTALL_DIR/sbin/nginx -v
+
+END
+
+chmod u+x version
+
+cat << END > diffconf
+git diff $NGINX_INSTALL_DIR/conf/nginx.conf.default $NGINX_INSTALL_DIR/conf/nginx.conf
+
+END
+
+chmod u+x diffconf
+
 echo "created nginx-run script: start stop reload restart show  status  test help"

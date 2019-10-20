@@ -12,6 +12,8 @@ echo "backup config file to $NGINX_CONF_FILE.backup"
 
 echo "check: cat $NGINX_CONF_FILE | grep worker_processes"
 
+./reload
+
 END
 
 chmod u+x init

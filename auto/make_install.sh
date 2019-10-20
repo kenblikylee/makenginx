@@ -5,7 +5,7 @@ test -d $SRC_ROOT_DIR || mkdir $SRC_ROOT_DIR
 
 # 下载源码
 ## 1. 安装 git
-yum install git
+yum install -y git && git config --global color.ui true
 ## 2. 下载 nginx 源码
 cd $SRC_ROOT_DIR
 git clone https://github.com/nginx/nginx.git
