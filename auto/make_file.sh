@@ -15,7 +15,8 @@ include $MAKEFILE
 
 .PHONY: clean
 clean:
-	@rm -rf $BUILD_DIR *.dSYM Makefile
+	rm -rf $BUILD_DIR *.dSYM Makefile
+	rm -f start stop reload restart show  status  test help
 
 END
 echo "created Makefile"
