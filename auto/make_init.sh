@@ -15,3 +15,25 @@ echo "check: cat $NGINX_CONF_FILE | grep worker_processes"
 END
 
 chmod u+x init
+
+cat << END > $NGINX_INSTALL_DIR/html/index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>makenginx</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1 style='text-align: center'>Welcome to nginx!</h1>
+<p style='text-align: center'>powered by <a href='https://github.com/kenblikylee/makenginx' target='_blank'>makenginx</a></p>
+</body>
+</html>
+
+END
