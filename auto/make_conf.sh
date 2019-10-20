@@ -64,6 +64,8 @@ sed -i -e "s/\[host\]/\$HOST/" $MAKENGINX_CONFD/\$APP.conf
 sed -i -e "s~\[root\]~\$ROOT_DIR~" $MAKENGINX_CONFD/\$APP.conf
 sed -i -e "s/\[port\]/\$PORT/" $MAKENGINX_CONFD/\$APP.conf
 
+cat $MAKENGINX_CONFD/\$APP.conf
+
 XEND
 
 chmod u+x addser
@@ -92,3 +94,60 @@ mv $INSTALL_ROOT_DIR/www/\$APP \$BACKUP_DIR
 XEND
 
 chmod u+x rmser
+
+# 添加 location
+cat << XEND > addloc
+
+if [ \$# -lt 3 ]; then
+    echo "usage: ./addloc <toapp> <uri> <rootdir>"
+    exit 0
+fi
+
+APP=\${1:-''}
+URI=\${2:-''}
+ROOTDIR=\${3:-''}
+
+APP_CONF=$MAKENGINX_CONFD/\$APP.conf
+
+if [ ! -f \$APP_CONF ]; then
+    echo "\$APP not exist, please create it with addser first."
+    exit 0
+fi
+
+sed -i -f ./auto/sed/add_location \$APP_CONF
+
+sed -i -e "s@\[uri\]@\$URI@" \$APP_CONF
+sed -i -e "s~\[rootdir\]~\$ROOTDIR~" \$APP_CONF
+
+cat \$APP_CONF
+
+XEND
+
+chmod u+x addloc
+
+
+# 移除 location
+cat << XEND > rmloc
+
+if [ \$# -lt 2 ]; then
+    echo "usage: ./rmloc <app> <uri>"
+    exit 0
+fi
+
+APP=\${1:-''}
+URI=\${2:-''}
+
+APP_CONF=$MAKENGINX_CONFD/\$APP.conf
+
+if [ ! -f \$APP_CONF ]; then
+    echo "\$APP not exist, please create it with addser first."
+    exit 0
+fi
+
+sed -i -e "/\$URI/,/}/ d" \$APP_CONF
+
+cat \$APP_CONF
+
+XEND
+
+chmod u+x rmloc
