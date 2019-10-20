@@ -70,4 +70,22 @@ END
 
 chmod u+x diffconf
 
+# 日志
+cat << END > log
+t=\${1:-''}
+
+if [ \$t = 'error' ]; then
+    cat $NGINX_INSTALL_DIR/logs/error.log
+elif [ \$t = 'access' ]; then
+    cat $NGINX_INSTALL_DIR/logs/access.log
+else
+    echo "ls $NGINX_INSTALL_DIR/logs"
+    ls $NGINX_INSTALL_DIR/logs
+    echo "usage: ./log [error|access]"
+fi
+
+END
+
+chmod u+x log
+
 echo "created nginx-run script: start stop reload restart show  status  test help"
