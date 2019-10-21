@@ -1,0 +1,32 @@
+cert_dir=${1:-cert}
+
+get_cert()
+{
+  test -d $cert_dir && ls $cert_dir | grep -E '.key$|.pem$'
+}
+
+certs=$(get_cert)
+
+while [[ -z $certs ]]
+do
+  echo "目录 $cert_dir 不存在或为空。请提供包含 .key 和 .pem 的目录的相对路径或绝对路径："
+  read cert_dir
+  certs=$(get_cert)
+done
+
+get_cert_names()
+{
+  for c in $certs
+  do
+    echo ${c%.*}
+  done
+}
+
+# LINES=40
+COLUMNS=40
+echo "找到多个网站的证书，请选择其中一个。"
+PS3="请选择证书序号:"
+select cert_name in $(get_cert_names | uniq)
+do
+  break
+done

@@ -35,7 +35,16 @@ END
 chmod u+x test
 
 cat << END > show
-$NGINX_INSTALL_DIR/sbin/nginx -T |  grep -v -E '^\s*#|^\s*$'
+
+if [[ \$1 != app ]]; then
+  $NGINX_INSTALL_DIR/sbin/nginx -T |  grep -v -E '^\s*#|^\s*$'
+  exit 0
+fi
+
+for appconf in \$(ls $MAKENGINX_CONFD)
+do
+  echo \${appconf%.conf}
+done
 
 END
 

@@ -16,7 +16,6 @@ chmod u+x cpconf
 
 # 自动初始化配置
 cat $NGINX_CONF_FILE.default > $NGINX_CONF_FILE
-MAKENGINX_CONFD=$NGINX_INSTALL_DIR/conf/makenginx_servers
 test -d $MAKENGINX_CONFD || mkdir $MAKENGINX_CONFD
 sed -i '$ i\    include makenginx_servers/*.conf;' $NGINX_CONF_FILE
 
@@ -214,3 +213,50 @@ cat \$APP_CONF
 XEND
 
 chmod u+x addimgloc
+
+# 添加 　SSL
+
+cat << XEND > addssl
+
+allapps=\$(./show app)
+
+if [[ -z \$allapps ]]; then
+  echo "还未创建应用，请使用 ./addser 添加引用。"
+  exit 0
+fi
+
+if [ \$(./show app | wc -l) -gt 1 ]; then
+  PS3="请选择要添加SSL的应用(输入序号)："
+  select app in \$allapps
+  do
+    if [ \$app ]; then break; fi
+  done
+else
+  app=\$allapps
+fi
+
+echo "添加SSL到\$app"
+
+. ./auto/func/get_cert
+
+echo "安装如下证书文件:"
+cert_files=\$(ls \$cert_dir/\$cert_name.{pem,key})
+echo \$cert_files
+
+test -d $NGINX_CONFD/cert || mkdir $NGINX_CONFD/cert
+
+cp \$cert_files $NGINX_CONFD/cert
+
+cert_pem=cert/\$cert_name.pem
+cert_key=cert/\$cert_name.key
+
+APP_CONF=$MAKENGINX_CONFD/\$app.conf
+sed -i -f ./auto/sed/add_ssl \$APP_CONF
+sed -i -e "s@\[cert_pem\]@\$cert_pem@" \$APP_CONF
+sed -i -e "s@\[cert_key\]@\$cert_key@" \$APP_CONF
+
+cat \$APP_CONF
+
+XEND
+
+chmod u+x addssl
