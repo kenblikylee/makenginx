@@ -3,6 +3,8 @@
 # Copyright (C) kenblog.top
 
 
+shift
+
 case "$module" in
 
    python)
